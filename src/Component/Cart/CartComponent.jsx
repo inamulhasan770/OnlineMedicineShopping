@@ -35,7 +35,7 @@ class CartComponent extends Component {
       quantity: this.props.totalqty,
       costPerPrice: this.props.totalPrice,
       medicineList: this.props.itemIds,
-      user: { userId: 4,
+      user: { userId: this.props.activeuser.userId,
        },
     };
     //console.log("cart items "+JSON.stringify(cart))
@@ -49,10 +49,10 @@ class CartComponent extends Component {
     let orderobj = {
       orderShippingAddress: "ABC nagar SIPCOT CHENNAI 600021",
       user: {
-        userId: 4
+        userId:  this.props.activeuser.userId
       },
       cart: {
-        cartId: 58
+        cartId: 2
       }, 
     };
     console.log(orderobj);
@@ -62,7 +62,7 @@ class CartComponent extends Component {
 
     let orderMedicineObj = {
       order: {
-        orderId: 1,
+        orderId: 3,
       },
       price: this.props.totalPrice,
       medicineList: this.props.itemIds,
@@ -204,6 +204,7 @@ const mapStateToProps = (state) => {
     itemIds: state.medicineIds,
     totalqty: state.totalItems,
     totalPrice: state.totalPrice,
+    activeuser: state.loggedUser
     //addedItems: state.addedItems
   };
 };
