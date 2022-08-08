@@ -17,9 +17,13 @@ export default class MedicineHomePage extends Component {
       tableData: [],
       orgtableData: [],
       perPage: 10,
-      currentPage: 0
+      currentPage: 0,
+      sortBy: 'default',
+      value: 'default'
     };
       this.handlePageClick = this.handlePageClick.bind(this);
+      this.handleSort = this.handleSort.bind(this);
+      this.handleChange = this.handleChange.bind(this);
   }
 
   handlePageClick = (e) => {
@@ -32,21 +36,40 @@ export default class MedicineHomePage extends Component {
     }, () => {
         this.loadMoreData()
     });
+  };
 
-};
-
-loadMoreData() {
-const data = this.state.orgtableData;
-
-const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
-this.setState({
-  pageCount: Math.ceil(data.length / this.state.perPage),
-  tableData:slice
-})
-
-}
+  loadMoreData() {
+  const data = this.state.orgtableData;
+  const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+  this.setState({
+    pageCount: Math.ceil(data.length / this.state.perPage),
+    tableData:slice
+  })
+  }
 
 
+  handleSort(sortBy) {
+    console.log(sortBy)
+     if(sortBy === 'default'){
+      
+     }
+     else if(sortBy === 'byName'){
+      
+     }
+     else if(sortBy === 'byPriceAsc') {
+      
+     }
+     else if(sortBy === 'byPriceDesc') {
+      
+     }
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value,
+    sortBy: event.target.value
+    });
+    this.handleSort(event.target.value);
+  }
 
   viewMedicine(id) {
     console.log(id);
@@ -104,6 +127,17 @@ this.setState({
           </div>
         </div>
         <div className="homecontainer container-fluid home">
+        <div>
+            <div clasName="form-group">
+            <label className="float-left ml-30">Filter</label>
+            <select className="form-control" name="sort" value={this.state.value} onChange={this.handleChange}>
+            <option value="default">Default</option>
+            <option value="byName">By Name</option>
+            <option value="byPriceAsc">By Price Low 2 High</option>
+            <option value="byPriceDesc">By Price High 2 Low</option>
+          </select>
+            </div>
+          </div>
           <br />
           <div className="row container-fluid col-12 back">
             {this.state.tableData.map((medicine) => (
